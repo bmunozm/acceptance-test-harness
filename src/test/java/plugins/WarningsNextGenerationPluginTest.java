@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
@@ -426,6 +427,7 @@ public class WarningsNextGenerationPluginTest extends AbstractJUnitTest {
     /**
      * Creates and builds a maven job and verifies that all warnings are shown in the summary and details views.
      */
+    @Ignore("NO part of CB envelope")
     @Test
     @WithPlugins("maven-plugin")
     public void should_show_maven_warnings_in_maven_project() {
