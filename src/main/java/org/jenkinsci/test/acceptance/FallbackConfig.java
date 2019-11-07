@@ -112,6 +112,9 @@ public class FallbackConfig extends AbstractModule {
             if (isCaptureHarEnabled()) {
                 firefoxOptions.setProxy(createSeleniumProxy(testName.get()));
             }
+            if(isWindows()){
+                firefoxOptions.setCapability("marionette", false);
+            }
             setDriverPropertyIfMissing("geckodriver", GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY);
 
             GeckoDriverService.Builder builder = new GeckoDriverService.Builder();
@@ -178,6 +181,10 @@ public class FallbackConfig extends AbstractModule {
         BrowserMobProxy browserMobProxy = HarRecorder.getBrowserMobProxy();
         browserMobProxy.newHar(testName);
         return ClientUtil.createSeleniumProxy(browserMobProxy);
+    }
+
+    private boolean isWindows(){
+        return System.getProperty("os.name").toLowerCase().contains("win");
     }
 
     private void setDriverPropertyIfMissing(final String driverCommand, final String property) {

@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>acceptance-test-harness</artifactId>
-  <version>1.70-SNAPSHOT</version>
+  <version>1.70-cb-1-SNAPSHOT</version>
 
   <name>Acceptance Test Harness</name>
   <licenses>
@@ -20,8 +20,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}.git</developerConnection>
+    <connection>scm:git:https://github.com/cloudbees-oss/acceptance-test-harness.git</connection>
+    <developerConnection>scm:git:https://github.com/cloudbees-oss/acceptance-test-harness.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -41,20 +41,37 @@
     <mockito.version>1.10.19</mockito.version>
     <assertj.version>3.11.1</assertj.version>
     <slf4j.version>1.7.25</slf4j.version>
+    <trimStackTrace>false</trimStackTrace> <!-- surefire -->
+    <cloudbeesInternalDistMgmtSnapshotsUrl>https://nexus-internal.cloudbees.com/content/repositories/snapshots</cloudbeesInternalDistMgmtSnapshotsUrl>
+    <cloudbeesInternalDistMgmtReleasesUrl>https://nexus-internal.cloudbees.com/service/local/staging/deploy/maven2</cloudbeesInternalDistMgmtReleasesUrl>
   </properties>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>cloudbees-internal-snapshots</id>
+      <name>CloudBees Internal Snapshots</name>
+      <url>${cloudbeesInternalDistMgmtSnapshotsUrl}</url>
+    </snapshotRepository>
+    <repository>
+      <id>cloudbees-internal-staging</id>
+      <name>CloudBees Internal Release Repository</name>
+      <url>${cloudbeesInternalDistMgmtReleasesUrl}</url>
+    </repository>
+  </distributionManagement>
 
   <repositories>
     <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
+      <id>cloudbees-internal-snapshots</id>
+      <name>CloudBees Internal Snapshots</name>
+      <url>https://repo-internal.cloudbees.com</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencies>
     <!-- Aether -->
@@ -451,6 +468,21 @@
     <defaultGoal>test</defaultGoal>
     <plugins>
       <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>cloudbees-internal-staging</serverId>
+          <nexusUrl>https://nexus-internal.cloudbees.com/</nexusUrl>
+          <stagingProfileId>ac6439af20821</stagingProfileId>
+          <tags>
+            <localUsername>${env.USER}</localUsername>
+            <javaVersion>${java.version}</javaVersion>
+          </tags>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
@@ -470,6 +502,9 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
             <configuration>
               <additionalparam>-Xdoclint:none</additionalparam>
             </configuration>
@@ -512,7 +547,7 @@
             </property>
           </properties>
           <!-- SUREFIRE-1588 workaround; too late for systemProperties: -->
-          <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+          <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true -Xmx1024m -XX:MaxPermSize=256m</argLine>
         </configuration>
       </plugin>
       <plugin>
