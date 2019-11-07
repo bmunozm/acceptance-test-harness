@@ -6,6 +6,7 @@ import org.jenkinsci.test.acceptance.po.PageAreaImpl;
 import org.jenkinsci.test.acceptance.po.WorkflowMultiBranchJob;
 import org.jenkinsci.test.acceptance.plugins.workflow_shared_library.WorkflowSharedLibrary;
 import org.openqa.selenium.support.ui.Select;
+import org.jvnet.hudson.test.Issue;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ public class GithubBranchSource extends BranchSource {
     public final Control owner = control("repoOwner");
     public final Control repository = control("repository");
     public final Control credential = control("credentialsId" /* >= 2.2.0 */, "scanCredentialsId");
+    public final Control repositoryUrl = control("repositoryUrl"); /* As of GHBS 2.5.5 and higher */
 
     public GithubBranchSource(WorkflowMultiBranchJob job, String path) {
         super(job, path);
@@ -40,6 +42,12 @@ public class GithubBranchSource extends BranchSource {
 
     public GithubBranchSource credential(final String credName) {
         this.credential.select(credName);
+        return this;
+    }
+
+    @Issue({"NGPIPELINE-648", "FNDJEN-1479"})
+    public GithubBranchSource singleRepositoryUrl(final String repositoryHTTPSUrl) {
+        this.repositoryUrl.set(repositoryHTTPSUrl);
         return this;
     }
 

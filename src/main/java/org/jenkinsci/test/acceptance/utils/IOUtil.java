@@ -60,8 +60,8 @@ public class IOUtil {
         int timeout = (int) time.milliseconds(10000);
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setConnectTimeout(timeout);
-        httpURLConnection.setReadTimeout(timeout);
+        //httpURLConnection.setConnectTimeout(timeout);
+        //httpURLConnection.setReadTimeout(timeout);
         return httpURLConnection;
     }
 
