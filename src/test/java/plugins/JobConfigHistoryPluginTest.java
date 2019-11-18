@@ -35,6 +35,9 @@ import org.jenkinsci.test.acceptance.plugins.maven.MavenModuleSet;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.MatrixProject;
 import org.jenkinsci.test.acceptance.po.ShellBuildStep;
+
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -79,7 +82,7 @@ public class JobConfigHistoryPluginTest extends AbstractJUnitTest {
         assertThat("New changes saved", newOnes.size(), greaterThan(original.size()));
     }
 
-    @Test @Issue("JENKINS-24410") @WithPlugins("maven-plugin")
+    @Test @Issue("JENKINS-24410") @WithPlugins("maven-plugin") @Ignore("Non related CB products")
     public void track_change_in_maven_project() {
         MavenModuleSet job = jenkins.jobs.create(MavenModuleSet.class);
 

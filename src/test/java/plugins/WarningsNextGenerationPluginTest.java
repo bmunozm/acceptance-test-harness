@@ -103,7 +103,7 @@ public class WarningsNextGenerationPluginTest extends AbstractJUnitTest {
      * Runs a pipeline with all tools two times. Verifies the analysis results in several views. Additionally, verifies
      * the expansion of tokens with the token-macro plugin.
      */
-    @Test
+    @Test @Ignore("No related CB products")
     @WithPlugins({"token-macro", "pipeline-stage-step", "workflow-durable-task-step", "workflow-basic-steps"})
     public void should_record_issues_in_pipeline_and_expand_tokens() {
         WorkflowJob job = jenkins.jobs.create(WorkflowJob.class);
