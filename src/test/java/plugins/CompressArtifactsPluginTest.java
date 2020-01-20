@@ -48,10 +48,12 @@ import org.jenkinsci.test.acceptance.po.BatchCommandBuildStep;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.ShellBuildStep;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @Since("1.532") // No artifact managers before 1.532
 @WithPlugins("compress-artifacts")
+@Ignore("No part of CB products")
 public class CompressArtifactsPluginTest extends AbstractJUnitTest {
 
     private static final String ARTIFACT_NAME = "the.artifact";

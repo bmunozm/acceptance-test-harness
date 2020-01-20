@@ -14,6 +14,7 @@ import org.jenkinsci.test.acceptance.po.ListView;
 import org.jenkinsci.test.acceptance.po.Slave;
 import org.jenkinsci.test.acceptance.slave.SlaveController;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,6 +27,7 @@ import static org.junit.Assume.assumeTrue;
  * @author Kohsuke Kawaguchi
  */
 @WithPlugins("PrioritySorter")
+@Ignore("No part of CB products")
 public class PrioritySorterPluginTest extends AbstractJUnitTest {
     private static final String LABEL = "slave";
 

@@ -15,6 +15,7 @@ import org.jenkinsci.test.acceptance.plugins.publish_over.PublishOverSSHPublishe
 import org.jenkinsci.test.acceptance.plugins.publish_over.PublishOverSSHPublisher.Publishers;
 import org.jenkinsci.test.acceptance.plugins.publish_over.PublishOverSSHPublisher.TransferSet;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -28,6 +29,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author jenky-hm
  */
 @WithPlugins("publish-over-ssh")
+@Ignore("No part of CB products")
 @Category(DockerTest.class)
 @WithDocker
 public class PublishOverSSHPluginTest extends AbstractJUnitTest {

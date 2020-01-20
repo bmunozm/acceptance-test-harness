@@ -13,10 +13,12 @@ import org.jenkinsci.test.acceptance.plugins.mission_control.MissionControlView;
 import org.jenkinsci.test.acceptance.po.DumbSlave;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.JenkinsConfig;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 
 @WithPlugins("mission-control-view")
+@Ignore("No part of CB products")
 public class MissionControlTest extends AbstractJUnitTest {
 
     /**

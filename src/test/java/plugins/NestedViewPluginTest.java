@@ -8,12 +8,14 @@ import org.jenkinsci.test.acceptance.plugins.nested_view.NestedView;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.ListView;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author Kohsuke Kawaguchi
  */
 @WithPlugins("nested-view")
+@Ignore("No part of CB products")
 public class NestedViewPluginTest extends AbstractJUnitTest {
 
     private FreeStyleJob j;

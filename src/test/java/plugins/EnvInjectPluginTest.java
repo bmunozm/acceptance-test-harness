@@ -30,9 +30,11 @@ import org.jenkinsci.test.acceptance.plugins.envinject.EnvInjectConfig;
 import org.jenkinsci.test.acceptance.plugins.envinject.EnvInjectStep;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @WithPlugins("envinject")
+@Ignore("No part of CB products")
 public class EnvInjectPluginTest extends AbstractJUnitTest {
 
     @Test

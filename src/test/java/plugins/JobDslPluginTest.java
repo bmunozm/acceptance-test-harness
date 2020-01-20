@@ -51,6 +51,7 @@ import static org.junit.Assume.*;
  * @author Maximilian Oeckler, Kevin Beck, Manuel Reinbold
  */
 @WithPlugins("job-dsl")
+@Ignore("No part of CB products")
 public class JobDslPluginTest extends AbstractJUnitTest {
 
     private static final String ADMIN = "admin";

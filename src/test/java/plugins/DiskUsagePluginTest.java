@@ -30,6 +30,7 @@ import org.jenkinsci.test.acceptance.plugins.disk_usage.DiskUsageGlobalConfig;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.Job;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -40,6 +41,7 @@ import static org.jenkinsci.test.acceptance.Matchers.hasElement;
 import static org.jenkinsci.test.acceptance.plugins.disk_usage.DiskUsage.reloaded;
 
 @WithPlugins("disk-usage")
+@Ignore("No part of CB products")
 public class DiskUsagePluginTest extends AbstractJUnitTest {
 
     private DiskUsage du;

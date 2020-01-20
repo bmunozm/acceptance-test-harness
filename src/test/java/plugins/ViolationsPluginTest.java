@@ -11,11 +11,13 @@ import org.jenkinsci.test.acceptance.plugins.violations.Violations;
 import org.jenkinsci.test.acceptance.plugins.violations.ViolationsAction;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @WithPlugins("violations")
+@Ignore("No part of CB products")
 public class ViolationsPluginTest extends AbstractJUnitTest {
 
     @Test

@@ -35,6 +35,7 @@ import org.jenkinsci.test.acceptance.po.Slave;
 import org.jenkinsci.test.acceptance.slave.SlaveController;
 import org.jenkinsci.test.acceptance.utils.mail.MailhogProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.jvnet.hudson.test.Issue;
@@ -46,6 +47,7 @@ import static org.junit.Assume.assumeTrue;
 
 @WithPlugins("mail-watcher-plugin")
 @Category(DockerTest.class)
+@Ignore("No part of CB products")
 @WithDocker
 public class MailWatcherPluginTest extends AbstractJUnitTest {
 

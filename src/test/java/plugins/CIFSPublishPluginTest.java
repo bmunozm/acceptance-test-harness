@@ -9,6 +9,7 @@ import org.jenkinsci.test.acceptance.plugins.publish_over.CifsPublisher;
 import org.jenkinsci.test.acceptance.plugins.publish_over.PublishGlobalConfig;
 import org.jenkinsci.test.acceptance.plugins.publish_over.PublishGlobalPublisher;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 
 /**
  * Feature: Tests for CIFS plugin
@@ -16,6 +17,7 @@ import org.jenkinsci.test.acceptance.po.FreeStyleJob;
  * @author Tobias Meyer
  */
 @WithPlugins("publish-over-cifs")
+@Ignore("No part of CB products")
 public class CIFSPublishPluginTest extends GlobalPublishPluginTest<SMBContainer> {
 
     @Override

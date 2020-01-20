@@ -6,6 +6,7 @@ import org.jenkinsci.test.acceptance.plugins.logparser.LogParserGlobalConfig;
 import org.jenkinsci.test.acceptance.plugins.logparser.LogParserPublisher;
 import org.jenkinsci.test.acceptance.po.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -21,6 +22,7 @@ import static org.hamcrest.Matchers.*;
 import org.jenkinsci.test.acceptance.plugins.logparser.LogParserOutputPage;
 
 @WithPlugins("log-parser")
+@Ignore("No part of CB products")
 public class LogParserTest extends AbstractJUnitTest {
 
     private static final String SUMMARY_XPATH = "//div[@id='main-panel']/table/tbody";

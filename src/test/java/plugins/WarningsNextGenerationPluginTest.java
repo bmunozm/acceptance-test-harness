@@ -65,6 +65,7 @@ import static org.jenkinsci.test.acceptance.plugins.warnings_ng.Assertions.*;
  * @author Veronika Zwickenpflug
  */
 @WithPlugins("warnings-ng")
+@Ignore("No part of CB products")
 public class WarningsNextGenerationPluginTest extends AbstractJUnitTest {
     private static final String WARNINGS_PLUGIN_PREFIX = "/warnings_ng_plugin/";
 

@@ -12,6 +12,7 @@ import org.jenkinsci.test.acceptance.plugins.publish_over.*;
 import org.jenkinsci.test.acceptance.plugins.publish_over.FtpGlobalConfig.FtpSite;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.junit.experimental.categories.Category;
+import org.junit.Ignore;
 
 /**
  * Feature: Tests for FTP plugin
@@ -23,6 +24,7 @@ import org.junit.experimental.categories.Category;
 @WithPlugins("publish-over-ftp")
 @Category(DockerTest.class)
 @WithDocker(localOnly=true)
+@Ignore("No part of CB products")
 public class FtpPublishPluginTest extends GlobalPublishPluginTest<FtpdContainer> {
 
     @Override

@@ -9,6 +9,7 @@ import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.Job;
 import org.jenkinsci.test.acceptance.po.ShellBuildStep;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -18,6 +19,7 @@ import com.google.common.base.Function;
  * Batch-task plugin test.
  */
 @WithPlugins("batch-task")
+@Ignore("No part of CB products")
 public class BatchTaskPluginTest extends AbstractJUnitTest {
     FreeStyleJob job;
 

@@ -40,6 +40,7 @@ import org.jenkinsci.test.acceptance.po.Job;
 import org.jenkinsci.test.acceptance.po.Slave;
 import org.jenkinsci.test.acceptance.slave.SlaveController;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
@@ -48,6 +49,7 @@ import org.junit.experimental.categories.Category;
 @WithPlugins("docker-build-step")
 @Category(DockerTest.class)
 @WithDocker
+@Ignore("No part of CB products")
 public class DockerBuildStepTest extends AbstractJUnitTest {
 
     @Inject

@@ -40,6 +40,7 @@ import static org.jenkinsci.test.acceptance.plugins.maven.MavenInstallation.inst
 @WithPlugins("artifactory")
 @Category(DockerTest.class)
 @WithDocker
+@Ignore("No part of CB products")
 public class ArtifactoryPluginTest extends AbstractJUnitTest {
 
     @Inject
