@@ -36,9 +36,11 @@ import org.jenkinsci.test.acceptance.plugins.script_security.ScriptApproval;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.ToolInstallation;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @WithPlugins("groovy")
+@Ignore("No part of CB products")
 public class GroovyPluginTest extends AbstractJUnitTest {
 
     private FreeStyleJob job;

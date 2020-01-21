@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import hudson.util.VersionNumber;
@@ -21,6 +22,7 @@ import org.jenkinsci.test.acceptance.po.FreeStyleJob;
  * Checks the successfully execution of jacoco coverage reports.
  */
 @WithPlugins("jacoco")
+@Ignore("No part of CB products")
 public class JacocoPluginTest extends AbstractJUnitTest {
 
     @Test
