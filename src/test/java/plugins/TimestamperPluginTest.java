@@ -15,7 +15,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jenkinsci.test.acceptance.Matchers.containsRegexp;
 
 @WithPlugins("timestamper")
-@Ignore("No part of CB products")
 public class TimestamperPluginTest extends AbstractJUnitTest {
 
     private FreeStyleJob job;
