@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2015 Red Hat, Inc.
+ * Copyright (c) 2020 Olivier Lamy.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.jenkinsci.test.acceptance.plugins.beaker_builder;
 
-import org.jenkinsci.test.acceptance.po.JenkinsConfig;
-import org.jenkinsci.test.acceptance.po.PageAreaImpl;
+package org.jenkinsci.test.acceptance.utils;
 
-public class BeakerGlobalConfig extends PageAreaImpl {
+import java.io.File;
 
-    public BeakerGlobalConfig(JenkinsConfig config) {
-        super(config, "/org-jenkinsci-plugins-beakerbuilder-BeakerBuilder");
+public class MavenLocalRepository {
+
+    private final File mavenLocalRepository;
+
+    private MavenLocalRepository() {
+        if(System.getProperty("mavenRepoPath") != null) {
+            mavenLocalRepository = new File(System.getProperty("mavenRepoPath"));
+        } else {
+            File userHome = new File(System.getProperty("user.home"));
+            mavenLocalRepository = new File(new File(userHome, ".m2"), "repository");
+        }
     }
 
-    public BeakerGlobalConfig setUrl(String url) {
-        control("beakerURL").set(url);
-        return this;
+    private static class LazyHolder {
+        static final MavenLocalRepository INSTANCE = new MavenLocalRepository();
     }
 
-    public BeakerGlobalConfig setLogin(String login) {
-        control("login").set(login);
-        return this;
+    public static File getMavenLocalRepository() {
+        return LazyHolder.INSTANCE.mavenLocalRepository;
     }
 
-    public BeakerGlobalConfig setPassword(String password) {
-        control("password").set(password);
-        return this;
-    }
+
 }

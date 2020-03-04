@@ -109,12 +109,6 @@
       <groupId>org.eclipse.aether</groupId>
       <artifactId>aether-transport-http</artifactId>
       <version>${aether.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpclient</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -187,7 +181,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>htmlunit-driver</artifactId>
-      <version>2.20</version>
+      <version>2.33.0</version>
     </dependency>
     <dependency>
       <groupId>com.codeborne</groupId>
@@ -233,7 +227,7 @@
     <dependency>
       <groupId>commons-net</groupId>
       <artifactId>commons-net</artifactId>
-      <version>2.2</version>
+      <version>3.6</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -406,7 +400,7 @@
     <dependency>
       <groupId>org.jenkins-ci.test</groupId>
       <artifactId>docker-fixtures</artifactId>
-      <version>1.8</version>
+      <version>1.9</version>
     </dependency>
     <dependency>
       <groupId>com.github.olivergondza.dumpling</groupId>
@@ -436,7 +430,6 @@
       <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <dependencyManagement>
@@ -454,12 +447,27 @@
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
-        <version>3.5</version>
+        <version>3.8</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>2.8.9</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.4.10</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.6</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -540,12 +548,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M1</version>
         <configuration>
-          <properties>
-            <property>
-              <name>listener</name>
-              <value>org.jenkinsci.test.acceptance.junit.JUnitProgressReporter</value>
-            </property>
-          </properties>
+          <systemPropertyVariables>
+            <mavenRepoPath>${settings.localRepository}</mavenRepoPath>
+            <listener>org.jenkinsci.test.acceptance.junit.JUnitProgressReporter</listener>
+          </systemPropertyVariables>
           <!-- SUREFIRE-1588 workaround; too late for systemProperties: -->
           <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true -Xmx1024m -XX:MaxPermSize=256m</argLine>
         </configuration>
