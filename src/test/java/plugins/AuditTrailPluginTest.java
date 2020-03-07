@@ -6,6 +6,7 @@ import org.jenkinsci.test.acceptance.plugins.audit_trail.AuditTrailLogger;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.slave.LocalSlaveController;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @WithPlugins("audit-trail")
+@Ignore("No part of CB products")
 public class AuditTrailPluginTest extends AbstractJUnitTest {
     AuditTrailLogger auditTrail;
 
