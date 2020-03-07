@@ -9,6 +9,7 @@ import org.jenkinsci.test.acceptance.plugins.xvnc.XvncJobConfig;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,6 +25,7 @@ import org.jvnet.hudson.test.Issue;
 
 @WithPlugins({"xvnc", "ssh-slaves"})
 @Category(DockerTest.class)
+@Ignore("No part of CB products")
 @WithDocker
 public class XvncPluginTest extends AbstractJUnitTest {
 
@@ -35,7 +37,7 @@ public class XvncPluginTest extends AbstractJUnitTest {
         slave.setLabels("xvnc");
         slave.save();
     }
-    
+
     private FreeStyleJob createJob() {
         FreeStyleJob job = jenkins.jobs.create(FreeStyleJob.class);
         job.configure();

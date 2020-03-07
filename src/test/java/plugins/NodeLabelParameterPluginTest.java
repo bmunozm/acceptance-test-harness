@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.*;
 import static org.jenkinsci.test.acceptance.po.BuildHistory.containsBuildOf;
 
 @WithPlugins("nodelabelparameter")
+@Ignore("No part of CB products")
 public class NodeLabelParameterPluginTest extends AbstractJUnitTest {
 
     @Inject
