@@ -8,6 +8,7 @@ import org.jenkinsci.test.acceptance.plugins.plot.PlotPublisher;
 import org.jenkinsci.test.acceptance.plugins.plot.PropertiesDataSeries;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Properties;
         "matrix-project", // JENKINS-37545
         "plot"
 })
+@Ignore("No part of CB products")
 public class PlotPluginPropertiesTest extends AbstractJUnitTest {
 
     private FreeStyleJob job;
