@@ -6,6 +6,7 @@ import org.jenkinsci.test.acceptance.plugins.cobertura.CoberturaAction;
 import org.jenkinsci.test.acceptance.plugins.cobertura.CoberturaPublisher;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -13,6 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jenkinsci.test.acceptance.Matchers.hasAction;
 
 @WithPlugins("cobertura")
+@Ignore("No part of CB products")
 public class CoberturaPluginTest extends AbstractJUnitTest {
 
     @Test

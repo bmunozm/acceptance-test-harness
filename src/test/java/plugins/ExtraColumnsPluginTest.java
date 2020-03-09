@@ -8,6 +8,7 @@ import org.jenkinsci.test.acceptance.plugins.extra_columns.LastConsoleColumn;
 import org.jenkinsci.test.acceptance.po.Folder;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.ListView;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
@@ -22,6 +23,7 @@ import static org.jenkinsci.test.acceptance.po.PageObject.*;
  * @author Ullrich Hafner
  */
 @WithPlugins("extra-columns")
+@Ignore("No part of CB products")
 public class ExtraColumnsPluginTest extends AbstractJUnitTest {
     /**
      * Sets up a job within a folder. Starts a succeeding build. Adds the last console column to a new view

@@ -6,6 +6,7 @@ import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.plugins.xunit.XUnitPublisher;
 import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -15,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author Kohsuke Kawaguchi
  */
 @WithPlugins("xunit")
+@Ignore("No part of CB products")
 public class XUnitPluginTest extends AbstractJUnitTest {
 
     @Test
