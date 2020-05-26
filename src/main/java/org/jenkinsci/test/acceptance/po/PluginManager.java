@@ -3,6 +3,9 @@ package org.jenkinsci.test.acceptance.po;
 import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.methods.HttpGet;
 import org.jenkinsci.test.acceptance.FallbackConfig;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.update_center.PluginMetadata;
@@ -19,6 +23,7 @@ import org.jenkinsci.test.acceptance.update_center.PluginSpec;
 import org.jenkinsci.test.acceptance.update_center.UpdateCenterMetadata.UnableToResolveDependencies;
 import org.jenkinsci.test.acceptance.update_center.UpdateCenterMetadataProvider;
 import org.junit.internal.AssumptionViolatedException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
@@ -90,9 +95,9 @@ public class PluginManager extends ContainerPageObject {
         // The check now button is a form submit (POST) with a redirect to the same page only if the check is successful.
         // We use the button itself to detect when the page has changed, which happens after the refresh has been done
         // And we check for the presence of the button again
-        clickButton("Check now");
+        clickLink("Check now");
         // The wait criteria is: we have left the current page and returned to the same one
-        waitFor(find(by.button("Check now"))).withTimeout(30, TimeUnit.SECONDS).until(webElement -> {
+        waitFor(find(by.link("Check now"))).withTimeout(30, TimeUnit.SECONDS).until(webElement -> {
             try {
                 try {
                     // We interact with the element just to detect if it is stale
@@ -271,7 +276,10 @@ public class PluginManager extends ContainerPageObject {
 
     private void tickPluginToInstall(PluginSpec spec) {
         String name = spec.getName();
-        check(find(by.xpath("//input[starts-with(@name,'plugin.%s.')]", name)));
+        WebElement filterBox = find(By.id("filter-box"));
+        filterBox.clear();
+        filterBox.sendKeys(name);
+        check(waitFor(by.xpath("//input[starts-with(@name,'plugin.%s.')]", name), 10));
         final VersionNumber requiredVersion = spec.getVersionNumber();
         if (requiredVersion != null) {
             final VersionNumber availableVersion = getAvailableVersionForPlugin(name);
@@ -286,19 +294,36 @@ public class PluginManager extends ContainerPageObject {
 
     private VersionNumber getAvailableVersionForPlugin(String pluginName) {
         // assuming we are on 'available' or 'updates' page
+        WebElement filterBox = find(By.id("filter-box"));
+        filterBox.clear();
+        filterBox.sendKeys(pluginName);
         String v = find(by.xpath("//input[starts-with(@name,'plugin.%s.')]/../../td[3]", pluginName)).getText();
         return new VersionNumber(v);
     }
 
     /**
      * Installs a plugin by uploading the *.jpi image.
+     * Can be use for corner cases to verify some behavior when very specific plugin versions are needed, for example
+     * to verify that a warning message is displayed when a risky and outdated plugin is installed on Jenkins.
+     *
      * @deprecated Not used when running {@link MockUpdateCenter}.
      */
     @Deprecated
     public void installPlugin(File localFile) throws IOException {
+
         try (CloseableHttpClient httpclient = new DefaultHttpClient()) {
+            HttpGet getCrumb = null;
+            try {
+                getCrumb = new HttpGet(jenkins.url("crumbIssuer/api/xml?xpath=/*/crumb/text()").toURI());
+            } catch (URISyntaxException e) {
+                throw new IOException("CRUMB URI syntax error: " + e.getMessage());
+            }
+
+            HttpResponse responseCrumb = httpclient.execute(getCrumb);
+            String crumbValue = IOUtils.toString(responseCrumb.getEntity().getContent(), StandardCharsets.UTF_8);
 
             HttpPost post = new HttpPost(jenkins.url("pluginManager/uploadPlugin").toExternalForm());
+            post.addHeader("Jenkins-Crumb",crumbValue);
             HttpEntity e = MultipartEntityBuilder.create()
                     .addBinaryBody("name", localFile, APPLICATION_OCTET_STREAM, "x.jpi")
                     .build();
@@ -336,6 +361,9 @@ public class PluginManager extends ContainerPageObject {
      */
     public void enablePlugin(String pluginName, boolean state) {
         visit("installed");
+        WebElement filterBox = find(By.id("filter-box"));
+        filterBox.clear();
+        filterBox.sendKeys(pluginName);
         check(find(by.url("plugin/" + pluginName)), state);
     }
 }
