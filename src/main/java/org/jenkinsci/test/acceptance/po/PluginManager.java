@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.time.temporal.ChronoUnit;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,21 +98,20 @@ public class PluginManager extends ContainerPageObject {
         // And we check for the presence of the button again
         clickLink("Check now");
         // The wait criteria is: we have left the current page and returned to the same one
-        waitFor(find(by.link("Check now"))).withTimeout(30, TimeUnit.SECONDS).until(webElement -> {
+        waitFor(find(by.link("Check now"))).withTimeout(java.time.Duration.of(time.seconds(30), ChronoUnit.MILLIS)).until(webElement -> {
             try {
-                try {
-                    // We interact with the element just to detect if it is stale
-                    webElement.findElement(by.id("it does not matter"));
-                } catch(StaleElementReferenceException e) {
-                    // with this exception we know we've left the original page
-                    // we look for an element in the page to check for success
-                    if (current.equals(getCurrentUrl())) {
-                        return true;
-                    }
+                // We interact with the element just to detect if it is stale
+                webElement.findElement(by.id("it does not matter"));
+            } catch(StaleElementReferenceException e) {
+                // with this exception we know we've left the original page
+                // we look for an element in the page to check for success
+                if (current.equals(getCurrentUrl())) {
+                    return true;
                 }
             } catch(Exception e) {
+                return false;
             }
-            return true;
+            return false;
         });
         updated = true;
     }
@@ -167,7 +167,7 @@ public class PluginManager extends ContainerPageObject {
         }
         return true;
     }
-    
+
     /**
      * Installs specified plugins.
      *
@@ -328,7 +328,7 @@ public class PluginManager extends ContainerPageObject {
                     .addBinaryBody("name", localFile, APPLICATION_OCTET_STREAM, "x.jpi")
                     .build();
             post.setEntity(e);
-    
+
             HttpResponse response = httpclient.execute(post);
             if (response.getStatusLine().getStatusCode() >= 400) {
                 throw new IOException("Failed to upload plugin: " + response.getStatusLine() + "\n" +

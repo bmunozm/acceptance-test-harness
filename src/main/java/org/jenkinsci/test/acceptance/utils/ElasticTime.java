@@ -38,6 +38,9 @@ import java.util.concurrent.TimeUnit;
  *
  * This implementation takes number of concurrent threads into account.
  *
+ * Please note the value returned by <tt>-DElasticTime.seconds</tt> and <tt>-DElasticTime.milliseconds</tt> corresponds
+ * allways to a milliseconds value
+ *
  * @author ogondza
  */
 public class ElasticTime {
@@ -54,6 +57,10 @@ public class ElasticTime {
      */
     private final double factor = Double.parseDouble(System.getProperty("ElasticTime.factor", "1.0"));
 
+    /**
+     * @param The number of seconds you want to be adapted to the performance difference
+     * @return The <b>miliseconds</b> that corresponds to the adapted number of seconds passed as parameter.
+     */
     public long seconds(long secs) {
         return milliseconds(TimeUnit.SECONDS.toMillis(secs));
     }
