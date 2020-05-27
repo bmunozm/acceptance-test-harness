@@ -26,6 +26,7 @@ import org.jenkinsci.test.acceptance.update_center.UpdateCenterMetadataProvider;
 import org.junit.internal.AssumptionViolatedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import com.google.inject.Inject;
@@ -96,9 +97,10 @@ public class PluginManager extends ContainerPageObject {
         // The check now button is a form submit (POST) with a redirect to the same page only if the check is successful.
         // We use the button itself to detect when the page has changed, which happens after the refresh has been done
         // And we check for the presence of the button again
-        clickLink("Check now");
+        WebElement checkButton = find(by.link("Check now"));
+        checkButton.click();
         // The wait criteria is: we have left the current page and returned to the same one
-        waitFor(find(by.link("Check now"))).withTimeout(java.time.Duration.of(time.seconds(30), ChronoUnit.MILLIS)).until(webElement -> {
+        waitFor(checkButton).withTimeout(java.time.Duration.of(time.seconds(30), ChronoUnit.MILLIS)).until(webElement -> {
             try {
                 // We interact with the element just to detect if it is stale
                 webElement.findElement(by.id("it does not matter"));
@@ -108,7 +110,7 @@ public class PluginManager extends ContainerPageObject {
                 if (current.equals(getCurrentUrl())) {
                     return true;
                 }
-            } catch(Exception e) {
+            } catch(NoSuchElementException e) {
                 return false;
             }
             return false;
