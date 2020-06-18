@@ -889,7 +889,7 @@ public class JobDslPluginTest extends AbstractJUnitTest {
         Job seed = createSeedJobWithJobDsl(jobDslScript);
 
         // Act
-        seed.startBuild().waitUntilFinished();
+        seed.scheduleBuild().shouldSucceed();
 
         // Assert
         Job job = jenkins.jobs.get(Job.class, testedJobName);
@@ -913,7 +913,7 @@ public class JobDslPluginTest extends AbstractJUnitTest {
         Job seed = createSeedJobWithJobDsl(jobDslScript);
 
         // Act
-        seed.startBuild().waitUntilFinished();
+        seed.scheduleBuild().shouldSucceed();
 
         // Assert
         Job job = jenkins.jobs.get(Job.class, newJobName);
