@@ -22,7 +22,6 @@ import org.jenkinsci.test.acceptance.po.FreeStyleJob;
  * Checks the successfully execution of jacoco coverage reports.
  */
 @WithPlugins("jacoco")
-@Ignore("No part of CB products")
 public class JacocoPluginTest extends AbstractJUnitTest {
 
     @Test
